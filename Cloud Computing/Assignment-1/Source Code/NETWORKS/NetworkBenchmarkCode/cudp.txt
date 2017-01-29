@@ -1,0 +1,33 @@
+For 1 thread
+RTT for 1 threads in sec: 0.011
+latency for 1 threads in ms: 11.0
+throughput for 1 threads in Mb/s: 6.935813210227274E-4
+For 2 threads
+MESSAGE SENT : OK
+MESSAGE SENT : OK
+RTT for 2 threads in sec: 0.001
+latency for 2 threads in ms: 1.0
+throughput for 2 threads in Mb/s: 0.00762939453125
+MESSAGE SENT : OK
+For 1 thread
+RTT for 1 threads in sec: 0.007
+latency for 1 threads in ms: 7.0
+throughput for 1 threads in Mb/s: 0.0010899135044642857
+For 2 threads
+MESSAGE SENT : OK
+MESSAGE SENT : OK
+RTT for 2 threads in sec: 0.001
+latency for 2 threads in ms: 1.0
+throughput for 2 threads in Mb/s: 0.00762939453125
+MESSAGE SENT : OK
+For 1 thread
+RTT for 1 threads in sec: 0.008
+latency for 1 threads in ms: 8.0
+throughput for 1 threads in Mb/s: 9.5367431640625E-4
+For 2 threads
+MESSAGE SENT : OK
+MESSAGE SENT : OK
+RTT for 2 threads in sec: 0.001
+latency for 2 threads in ms: 1.0
+throughput for 2 threads in Mb/s: 0.00762939453125
+MESSAGE SENT : OK

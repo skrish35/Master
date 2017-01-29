@@ -1,0 +1,87 @@
+Script started on Fri 12 Feb 2016 08:54:05 AM UTC
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ javac CPUGflops.java
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+1
+---------------------For 1 Thread----------------------
+Total Time :0.826
+GFLOPS :15.599154820823244
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+2
+---------------------For 2 Threads----------------------
+Total Time :1.696
+GFLOPS :7.597229883254718
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+3
+---------------------For 4 Threads----------------------
+Total Time :3.40875
+GFLOPS :3.779969726318108
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+1
+---------------------For 1 Thread----------------------
+Total Time :0.84
+GFLOPS :15.339168907142858
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+2
+---------------------For 2 Threads----------------------
+Total Time :1.693
+GFLOPS :7.61069484783801
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+3
+---------------------For 4 Threads----------------------
+Total Time :3.4079999999999995
+GFLOPS :3.780794592160773
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+1
+---------------------For 1 Thread----------------------
+Total Time :0.843
+GFLOPS :15.284581117437723
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+2
+---------------------For 2 Threads----------------------
+Total Time :1.666
+GFLOPS :7.734104405755872
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ java CPUGflops
+1.Using Single thread
+2.Using two threads
+3.Using four threads
+Enter your choice:
+3
+---------------------For 4 Threads----------------------
+Total Time :3.39225
+GFLOPS :3.798350570483106
+]0;ubuntu@ip-172-31-44-213: ~/CPUBenchmarkubuntu@ip-172-31-44-213:~/CPUBenchmark$ exit
+exit
+
+Script done on Fri 12 Feb 2016 08:56:31 AM UTC

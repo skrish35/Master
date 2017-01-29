@@ -1,0 +1,961 @@
+Local
+---------------------
+
+Client
+-------------
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
+
+class ClntTask implements Runnable {
+	private static final String STRING2 = ",";
+	private static final String STRING_COLON = ":";
+	ConcurrentLinkedQueue<String> queueForTask;
+	ConcurrentLinkedQueue<String> resultanQqueue;
+	int numberOfTask;
+	public boolean clientFlag;
+	String fileName = null;
+
+	/* constructor */
+	ClntTask(ConcurrentLinkedQueue<String> taskqueue,
+			ConcurrentLinkedQueue<String> resultqueue, int taskCount,
+			Boolean flag, String fileName) {
+		this.queueForTask = taskqueue;
+		this.resultanQqueue = resultqueue;
+		this.clientFlag = flag;
+		this.numberOfTask = taskCount;
+		this.fileName = fileName;
+	}
+
+	/* run the thread */
+	public void run() {
+		System.out.println("Client started inserting into Task Queue "
+				+ clientFlag);
+		String inputString = fileName;
+		int size = 0;
+		if (clientFlag == true) {
+			char firstChar = inputString.charAt(0);// In each method we just
+													// take the first char and
+													// pass the remaining
+			// substring to the next method call, during the return calls the
+			// characters are appended in reverse order.
+			size = insertIntoQueue(fileName, numberOfTask);/*
+															 * insertion to
+															 * queue
+															 */
+		} else if (clientFlag == false) {
+			String reverseString = (inputString.substring(1));// Recursive call
+																// to same
+																// method.
+			remove(size, resultanQqueue);/* remove from queue */
+			System.out.println("Client started picking from result queue");
+		}
+	}
+
+	/* insertion to queue */
+	public int insertIntoQueue(String fileName, int taskCount) {
+
+        
+		try {
+			
+                        BufferedReader br = new BufferedReader(new InputStreamReader(
+			new FileInputStream(new File(fileName))));/* get reader */
+			String string = null;
+			int t = 0;
+			/* read file line by line */
+			for (; (string = br.readLine()) != null;) {
+				int i = 0;
+				while (i < taskCount) {
+					t++;
+					addToTaskQueue(t, string);/* add task to queue */
+					i++;
+				}
+			}
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+
+	/* adding task to queue */
+	private void addToTaskQueue(int t, String line) {
+		queueForTask.add(line + STRING_COLON + t);
+		System.out.println(line + STRING_COLON + t);
+	}
+
+	public void StringSplit(String str1) {
+		String str2 = STRING2;
+		String[] splittedStrs = str1.split(str2);
+		for (String string : splittedStrs) { // this is new type of for loop,
+												
+			System.out.println(string); 
+		}
+		int length = 0;// initiliz the length
+		String[] strings2 = str1.split(str2, 3); 
+													
+		for (String string : strings2) {
+			length = length + string.length();
+		}
+	}
+
+	/* removal of threads */
+	public void remove(int tSize, ConcurrentLinkedQueue<String> resultqueue) {
+		String result;
+		for (;(result = resultqueue.poll()) != null;) {
+			System.out.println(result);
+		}
+		for (String string : resultqueue) {
+			int len = string.length();
+		}
+		int size = resultqueue.size();
+	}
+
+	public String clientTask(String inputString) {
+		char firstChar = inputString.charAt(0);// In each method we just take
+												// the first char and pass the
+												// remaining
+		// substring to the next method call, during the return calls the
+		// characters are appended in reverse order.
+		String reverseString = clientTask(inputString.substring(1));// Recursive
+																	// call to
+																	// same
+																	// method.
+		reverseString += firstChar;// during the return calls the characters are
+									// appended in reverse order.
+		return reverseString;
+	}
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+One Thread
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+public class OneThread {
+
+	public boolean clientFlag = true;
+
+	public void performQueueTask(List<String> wordList, int threadCount,
+			int taskCount, String fileName) {
+		ConcurrentLinkedQueue<String> queueForTask = new ConcurrentLinkedQueue<String>();
+		ConcurrentLinkedQueue<String> resultntqueue = new ConcurrentLinkedQueue<String>();
+
+		try {
+
+			if (threadCount == 1) {
+				double startTime = System.nanoTime();
+				/* Timer Started */;
+				ClntTask c = new ClntTask(queueForTask, resultntqueue, taskCount,
+						clientFlag, fileName);
+				Thread client = new Thread(c);/* client creation */
+				client.start();/* client start */
+				client.join();/* client end */
+				List<Thread> worker = new ArrayList<Thread>();
+				int i = 0;
+				while (i < threadCount) {
+					WorkerTask w = new WorkerTask(queueForTask, resultntqueue);
+					Thread t = new Thread(w);
+					worker.add(t);/* create workers */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).start();/* start worker */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).join();/* wait for end of all workers */
+					i++;
+				}
+				
+				/* create thread for removl */
+				
+				clientRemove.start();/* start remove task */
+				clientRemove.join();/* wait for remove task complete */
+				double endTime = System.nanoTime();
+				caluculateAndDisplayTimeTaken(startTime, endTime);
+			} else {
+				System.out.println("Please enter correct number of threads");
+			}
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private String fullPath;
+
+	public String extension(String extensionSeparator, String pathSeparator) {
+		int dot = fullPath.lastIndexOf(extensionSeparator);/* get last index */
+		String a = fullPath.substring(dot + 1);/* get substring */
+		int sep = fullPath.lastIndexOf(pathSeparator);/* get last index */
+		return fullPath.substring(sep + 1, dot);
+	}
+
+	protected static String removeJunk(String string) {
+		int len = string.length();
+		StringBuilder dest = new StringBuilder(len);
+		char charact;
+		for (int i = (len - 1); i >= 0; i--) {
+			charact = string.charAt(i);
+			if (Character.isLetter(charact)) {
+				dest.append(charact);
+			}
+		}
+		return dest.toString();
+	}
+
+	public Map<Integer, Integer> combineMethod(Map<Integer, Integer> map) {
+		Map<Integer, Integer> combineMap = new HashMap<Integer, Integer>();
+		int fileSum = map.get(combineMap);/* get file sum */
+		int fileCount = map.get(combineMap);/* get file map count */
+		float fileAverage = (float) fileSum / (float) fileCount;/* fi nd average */
+		return combineMap; /* return average class */
+	}
+
+	private void caluculateAndDisplayTimeTaken(double startTime, double endTime) {
+		/* caluculate and display time taken */
+		double elapsedTime = endTime - startTime;
+		double timeSeconds = elapsedTime / 1000000000.0;
+		System.out.println("Total time : " + timeSeconds);
+	}
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Two Threads
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+public class TwoThreads {
+
+	public boolean clientFlag = true;
+
+	public void performQueueTask(List<String> wordList, int threadCount,
+			int taskCount, String fileName) {
+		ConcurrentLinkedQueue<String> queueForTask = new ConcurrentLinkedQueue<String>();
+		ConcurrentLinkedQueue<String> resultntqueue = new ConcurrentLinkedQueue<String>();
+
+		try {
+
+			if (threadCount == 2) {
+				double startTime = System.nanoTime();
+				/* Timer Started */;
+				ClntTask c = new ClntTask(queueForTask, resultntqueue, taskCount,
+						clientFlag, fileName);
+				Thread client = new Thread(c);/* client creation */
+				client.start();/* client start */
+				client.join();/* client end */
+				List<Thread> worker = new ArrayList<Thread>();
+				int i = 0;
+				while (i < threadCount) {
+					WorkerTask w = new WorkerTask(queueForTask, resultntqueue);
+					Thread t = new Thread(w);
+					worker.add(t);/* create workers */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).start();/* start worker */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).join();/* wait for end of all workers */
+					i++;
+				}
+				
+				clientRemove.start();/* start remove task */
+				clientRemove.join();/* wait for remove task complete */
+				double endTime = System.nanoTime();
+				caluculateAndDisplayTimeTaken(startTime, endTime);
+			} else {
+				System.out.println("Please enter correct number of threads");
+			}
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private String fullPath;
+
+	public String extension(String extensionSeparator, String pathSeparator) {
+		int dot = fullPath.lastIndexOf(extensionSeparator);/* get last index */
+		String a = fullPath.substring(dot + 1);/* get substring */
+		int sep = fullPath.lastIndexOf(pathSeparator);/* get last index */
+		return fullPath.substring(sep + 1, dot);
+	}
+
+	protected static String removeJunk(String string) {
+		int len = string.length();
+		StringBuilder dest = new StringBuilder(len);
+		char charact;
+		for (int i = (len - 1); i >= 0; i--) {
+			charact = string.charAt(i);
+			if (Character.isLetter(charact)) {
+				dest.append(charact);
+			}
+		}
+		return dest.toString();
+	}
+
+	public Map<Integer, Integer> combineMethod(Map<Integer, Integer> map) {
+		Map<Integer, Integer> combineMap = new HashMap<Integer, Integer>();
+		int fileSum = map.get(combineMap);/* get file sum */
+		int fileCount = map.get(combineMap);/* get file map count */
+		float fileAverage = (float) fileSum / (float) fileCount;/* fi nd average */
+		return combineMap; /* return average class */
+	}
+
+	private void caluculateAndDisplayTimeTaken(double startTime, double endTime) {
+		/* caluculate and display time taken */
+		double elapsedTime = endTime - startTime;
+		double timeSeconds = elapsedTime / 1000000000.0;
+		System.out.println("Total Time : " + timeSeconds);
+	}
+
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Four Threads
+
+-------------------------------------------------------------------------------------------------------------------
+
+public class FourThreads {
+
+	public boolean clientFlag = true;
+
+	public void performQueueTask(List<String> wordList, int threadCount,
+			int taskCount, String fileName) {
+		ConcurrentLinkedQueue<String> queueForTask = new ConcurrentLinkedQueue<String>();
+		ConcurrentLinkedQueue<String> resultntqueue = new ConcurrentLinkedQueue<String>();
+
+		try {
+
+			if (threadCount == 4) {
+				double startTime = System.nanoTime();
+				/* Timer Started */;
+				ClntTask c = new ClntTask(queueForTask, resultntqueue, taskCount,
+						clientFlag, fileName);
+				Thread client = new Thread(c);/* client creation */
+				client.start();/* client start */
+				client.join();/* client end */
+				List<Thread> worker = new ArrayList<Thread>();
+				int i = 0;
+				while (i < threadCount) {
+					WorkerTask w = new WorkerTask(queueForTask, resultntqueue);
+					Thread t = new Thread(w);
+					worker.add(t);/* create workers */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).start();/* start worker */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).join();/* wait for end of all workers */
+					i++;
+				}
+				
+				clientRemove.start();/* start remove task */
+				clientRemove.join();/* wait for remove task complete */
+				double endTime = System.nanoTime();
+				caluculateAndDisplayTimeTaken(startTime, endTime);
+			} else {
+				System.out.println("Please enter correct number of threads");
+			}
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private String fullPath;
+
+	public String extension(String extensionSeparator, String pathSeparator) {
+		int dot = fullPath.lastIndexOf(extensionSeparator);/* get last index */
+		String a = fullPath.substring(dot + 1);/* get substring */
+		int sep = fullPath.lastIndexOf(pathSeparator);/* get last index */
+		return fullPath.substring(sep + 1, dot);
+	}
+
+	protected static String removeJunk(String string) {
+		int len = string.length();
+		StringBuilder dest = new StringBuilder(len);
+		char charact;
+		for (int i = (len - 1); i >= 0; i--) {
+			charact = string.charAt(i);
+			if (Character.isLetter(charact)) {
+				dest.append(charact);
+			}
+		}
+		return dest.toString();
+	}
+
+	public Map<Integer, Integer> combineMethod(Map<Integer, Integer> map) {
+		Map<Integer, Integer> combineMap = new HashMap<Integer, Integer>();
+		int fileSum = map.get(combineMap);/* get file sum */
+		int fileCount = map.get(combineMap);/* get file map count */
+		float fileAverage = (float) fileSum / (float) fileCount;/* fi nd average */
+		return combineMap; /* return average class */
+	}
+
+	private void caluculateAndDisplayTimeTaken(double startTime, double endTime) {
+		/* caluculate and display time taken */
+		double elapsedTime = endTime - startTime;
+		double timeSeconds = elapsedTime / 1000000000.0;
+		System.out.println("Total time : " + timeSeconds);
+	}
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+Eight Threads
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+public class EightThreads {
+
+	public boolean clientFlag = true;
+
+	public void performQueueTask(List<String> wordList, int threadCount,
+			int taskCount, String fileName) {
+		ConcurrentLinkedQueue<String> queueForTask = new ConcurrentLinkedQueue<String>();
+		ConcurrentLinkedQueue<String> resultntqueue = new ConcurrentLinkedQueue<String>();
+
+		try {
+
+			if (threadCount == 8) {
+				double startTime = System.nanoTime();
+				/* Timer Started */;
+				ClntTask c = new ClntTask(queueForTask, resultntqueue, taskCount,
+						clientFlag, fileName);
+				Thread client = new Thread(c);/* client creation */
+				client.start();/* client start */
+				client.join();/* client end */
+				List<Thread> worker = new ArrayList<Thread>();
+				int i = 0;
+				while (i < threadCount) {
+					WorkerTask w = new WorkerTask(queueForTask, resultntqueue);
+					Thread t = new Thread(w);
+					worker.add(t);/* create workers */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).start();/* start worker */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).join();/* wait for end of all workers */
+					i++;
+				}
+				
+				clientRemove.start();/* start remove task */
+				clientRemove.join();/* wait for remove task complete */
+				double endTime = System.nanoTime();
+				caluculateAndDisplayTimeTaken(startTime, endTime);
+			} else {
+				System.out.println("Please enter correct number of threads");
+			}
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private String fullPath;
+
+	public String extension(String extensionSeparator, String pathSeparator) {
+		int dot = fullPath.lastIndexOf(extensionSeparator);/* get last index */
+		String a = fullPath.substring(dot + 1);/* get substring */
+		int sep = fullPath.lastIndexOf(pathSeparator);/* get last index */
+		return fullPath.substring(sep + 1, dot);
+	}
+
+	protected static String removeJunk(String string) {
+		int len = string.length();
+		StringBuilder dest = new StringBuilder(len);
+		char charact;
+		for (int i = (len - 1); i >= 0; i--) {
+			charact = string.charAt(i);
+			if (Character.isLetter(charact)) {
+				dest.append(charact);
+			}
+		}
+		return dest.toString();
+	}
+
+	public Map<Integer, Integer> combineMethod(Map<Integer, Integer> map) {
+		Map<Integer, Integer> combineMap = new HashMap<Integer, Integer>();
+		int fileSum = map.get(combineMap);/* get file sum */
+		int fileCount = map.get(combineMap);/* get file map count */
+		float fileAverage = (float) fileSum / (float) fileCount;/* fi nd average */
+		return combineMap; /* return average class */
+	}
+
+	private void caluculateAndDisplayTimeTaken(double startTime, double endTime) {
+		/* caluculate and display time taken */
+		double elapsedTime = endTime - startTime;
+		double timeSeconds = elapsedTime / 1000000000.0;
+		System.out.println("Total time : " + timeSeconds);
+	}
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Sixteen Threads
+
+----------------------------------------------------------------------------------------------------------------------------------------
+public class SixtenThreads {
+
+	public boolean clientFlag = true;
+
+	public void performQueueTask(List<String> wordList, int threadCount,
+			int taskCount, String fileName) {
+		ConcurrentLinkedQueue<String> queueForTask = new ConcurrentLinkedQueue<String>();
+		ConcurrentLinkedQueue<String> resultntqueue = new ConcurrentLinkedQueue<String>();
+
+		try {
+
+			if (threadCount == 16) {
+				double startTime = System.nanoTime();
+				/* Timer Started */;
+				ClntTask c = new ClntTask(queueForTask, resultntqueue, taskCount,
+						clientFlag, fileName);
+				Thread client = new Thread(c);/* client creation */
+				client.start();/* client start */
+				client.join();/* client end */
+				List<Thread> worker = new ArrayList<Thread>();
+				int i = 0;
+				while (i < threadCount) {
+					WorkerTask w = new WorkerTask(queueForTask, resultntqueue);
+					Thread t = new Thread(w);
+					worker.add(t);/* create workers */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).start();/* start worker */
+					i++;
+				}
+				i = 0;
+				while (i < threadCount) {
+					(worker.get(i)).join();/* wait for end of all workers */
+					i++;
+				}
+				
+				clientRemove.start();/* start remove task */
+				clientRemove.join();/* wait for remove task complete */
+				double endTime = System.nanoTime();
+				caluculateAndDisplayTimeTaken(startTime, endTime);
+			} else {
+				System.out.println("Please enter correct number of threads");
+			}
+		} catch (InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private String fullPath;
+
+	public String extension(String extensionSeparator, String pathSeparator) {
+		int dot = fullPath.lastIndexOf(extensionSeparator);/* get last index */
+		String a = fullPath.substring(dot + 1);/* get substring */
+		int sep = fullPath.lastIndexOf(pathSeparator);/* get last index */
+		return fullPath.substring(sep + 1, dot);
+	}
+
+	protected static String removeJunk(String string) {
+		int len = string.length();
+		StringBuilder dest = new StringBuilder(len);
+		char charact;
+		for (int i = (len - 1); i >= 0; i--) {
+			charact = string.charAt(i);
+			if (Character.isLetter(charact)) {
+				dest.append(charact);
+			}
+		}
+		return dest.toString();
+	}
+
+	public Map<Integer, Integer> combineMethod(Map<Integer, Integer> map) {
+		Map<Integer, Integer> combineMap = new HashMap<Integer, Integer>();
+		int fileSum = map.get(combineMap);/* get file sum */
+		int fileCount = map.get(combineMap);/* get file map count */
+		float fileAverage = (float) fileSum / (float) fileCount;/* fi nd average */
+		return combineMap; /* return average class */
+	}
+
+	private void caluculateAndDisplayTimeTaken(double startTime, double endTime) {
+		/* caluculate and display time taken */
+		double elapsedTime = endTime - startTime;
+		double timeSeconds = elapsedTime / 1000000000.0;
+		System.out.println("Total Time : " + timeSeconds);
+	}
+
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Worker
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+class WorkerTask implements Runnable {
+	private static final String STRING2 = " ";
+	private static final String STRING1 = ":";
+	ConcurrentLinkedQueue<String> queueForTask;
+	ConcurrentLinkedQueue<String> resultntqueue;
+
+	/* constructor */
+	WorkerTask(ConcurrentLinkedQueue<String> taskqueue,
+			ConcurrentLinkedQueue<String> resultqueue) {
+		this.queueForTask = taskqueue;
+		this.resultntqueue = resultqueue;
+	}
+
+	public static void WorkerStringSplit(String str) {
+		String[] tokens = str.split(STRING2);/* splitting the sting with space */
+		for (String s : tokens) {
+			int len = s.length();/* getting the length of all strings */
+		}
+		tokens = str.split("\\s+");/* Splitting the string for the second time */
+	}
+
+	public void buildCommand(String filename) {
+        StringBuffer myInitials = new StringBuffer();
+        int length = filename.length();
+
+        for (int i = 0; i < length; i++) {
+            if (Character.isUpperCase(filename.charAt(i))) {
+                myInitials.append(filename.charAt(i));
+            }
+        }
+	}
+
+	public void run() {
+		/* Worker Started */;
+		String task = null;
+		for (; (task = queueForTask.poll()) != null;) {
+			int index = task.indexOf(STRING1);
+			String sub = task.substring(6, index);
+			int sleep = Integer.parseInt(sub);/* sleep time */
+			try {
+				Thread.currentThread();
+				Thread.sleep(sleep);/* thread sleep */
+			} catch (InterruptedException e) {
+				index = task.indexOf(STRING1);
+				System.out.println(e.getMessage());
+			}
+			
+	}
+
+	public String workerMethodReadFile(String inputString) {
+
+		if (inputString.length() > 1) {
+			char firstChar = inputString.charAt(0);// In each method we just
+													// take the first char and
+													// pass the remaining
+			// substring to the next method call, during the return calls the
+			// characters are appended in reverse order.
+			String reverseString = workerMethodReadFile(inputString
+					.substring(1));// Recursive call to same method.
+			reverseString += firstChar;// during the return calls the characters
+										// are appended in reverse order.
+			return reverseString;
+		} else if (inputString.length() == 1) {
+			return inputString;
+		}
+		return "";
+	}
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Main Class
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class MainClass {
+
+	public static void main(String[] args) {
+		OneThread forOneThread = new OneThread();
+		TwoThreads forTwoThreads = new TwoThreads();
+		FourThreads forFourThreads = new FourThreads();
+		EightThreads forEightThreads = new EightThreads();
+		SixtenThreads forSixtenThreads = new SixtenThreads();
+	
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter the input");
+		System.out.println("-------------------------------------------");
+		if (in.hasNext()) {
+			inputCommand = in.nextLine();
+			String[] stringArray = inputCommand.split(" ");
+			int fact=1;
+			List<String> wordList = printWords(stringArray);
+			int n = 10;
+			int threadCount = Integer.parseInt(wordList.get(4));
+			for(int i=1;i<=n;i++)
+				 fact=fact*i;
+			taskCount = Integer.parseInt(wordList.get(5).substring(1));
+			fileName = wordList.get(6);
+			for(int i=1;i<=n;i++)
+				 fact=fact*i;
+			if (threadCount == 1) {
+				forOneThread.performQueueTask(wordList, threadCount, taskCount, fileName);
+			} else if (threadCount == 2) {
+				forTwoThreads.performQueueTask(wordList, threadCount, taskCount, fileName);
+			} else if (threadCount == 4) {
+				forFourThreads.performQueueTask(wordList, threadCount, taskCount, fileName);
+			} else if (threadCount == 8) {
+				forEightThreads.performQueueTask(wordList, threadCount, taskCount, fileName);
+			} else if (threadCount == 16) {
+				forSixtenThreads.performQueueTask(wordList, threadCount, taskCount, fileName);
+			} else {
+				System.out.println("Please enter correct number of threads");
+			}
+
+		}
+	}
+
+	private static List<String> printWords(String[] words) {
+		List<String> wordList = new ArrayList<String>();
+		for (String word : words) {
+			wordList.add(word);
+			System.out.println(word);
+		}
+		return wordList;
+	}
+
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Remote
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+public class RemoteBackEndWorkers_sk {
+
+	private static final String EQUALS = "=";
+	private static final int SLEEP_TIME = 12000;
+	private static final String EMPTY = "";
+
+	public static void ProcessTask(List<String> tasks) {
+		Taskadd(tasks);
+
+	}
+	
+	Iterator<Map.Entry<String, String>> iterator = Taskadd.entrySet().iterator() ;
+        while(iterator.hasNext()){
+        Map.Entry<String, String> workers = iterator.next();
+        System.out.println(workers.getKey() +" :: "+ workers.getValue());
+        
+        iterator.remove();
+}
+    public void completeTask(final String taskListId, final String taskId, final Activity activity, final Handler callback)
+    {
+    	AsyncTask<Void, Void, Void> asyncTask = new AsyncTaskWithProgressDialog<Void, Void, Void>(activity, R.string.completing)
+    	{
+    		@Override
+    		protected Void doInBackground(Void... voids)
+    		{
+    			try
+    			{
+    				Task task = tasksService.tasks().get(taskListId, taskId).execute();
+    				task.setCompleted(new DateTime(System.currentTimeMillis(), 0));
+    				task.setStatus("completed");
+    				Task result = tasksService.tasks().update(taskListId, task.getId(), task).execute();
+    				callback.sendMessage(callback.obtainMessage(0, result));
+    				asyncTaskByActivity.remove(activity);
+    				onRequestCompleted();
+    			}   catch (IOException e)
+    			{
+    				handleApiException(activity, callback, e);
+    			}
+    			return null;
+    		}
+    	};
+    	asyncTaskByActivity.put(activity, asyncTask);
+    	executeAsyncTaskWhenAuthenticated(activity);
+    }
+    
+public class RemoteDynamoDB_sk {
+	
+	private static void init() throws Exception {
+		AWSCredentials credentials = null;
+		try {
+			credentials = new ProfileCredentialsProvider("default")
+					.getCredentials();
+		} catch (Exception e) {
+			throw new AmazonClientException(e.getMessage());
+		}
+		dynamoDB = new AmazonDynamoDBClient(credentials);
+		Region usWest2 = Region.getRegion(Regions.US_WEST_2);
+		dynamoDB.setRegion(usWest2);
+	}
+		
+	 public void putTasksToDB(List<Task> tList){ 
+		   for (Task t : tList){ 
+		    boolean deleted; 
+		    boolean completed =!(t.getCompleted() == null); 
+		    if(t.getDeleted() == null){ 
+		     deleted = false; 
+		    }else{ 
+		     deleted = t.getDeleted(); 
+		    } 
+		    taskentry.putTask(t.getTitle(),  
+		      t.getNotes(),  
+		      t.getUpdated().toString),  
+		      t.getId(),  
+		      deleted, 
+		      completed); 
+		   } 
+		  } 
+		   
+		  public HashMap<Integer, Task> getLocalNewTaskMap(){ 
+		   ArrayList<Integer> allNewId = taskentry.getAllNewId(); 
+		   HashMap<Integer, Task> result = new HashMap<Integer, Task>(); 
+		   if(!allNewId.isEmpty()){ 
+		    for(int id : allNewId){ 
+		     Task t = new Task(); 
+		     boolean completed  = taskentry.getTaskCompletedByID(id); 
+		     boolean deleted = taskentry.getTaskDeleteByID(id); 
+		     db update = db.parse(taskentry.getUpdbByID(id)); 
+		     String identifier = taskentry.getTaskIdentifierByID(id); 
+		     String title = taskentry.getTaskTitleByID(id); 
+		     t.setDeleted(deleted); 
+		     t.setTitle(title); 
+		     if(completed){ 
+		      t.setStatus("completed");
+		     } 
+		     t.setUpdated(updb); 
+		     t.setId(identifier); 
+		     result.put(id, t); 
+		    } 
+		   } 
+		   return result; 
+		  } 
+		  
+		  public List<Task> getTasksFromDB(){ 
+			   ArrayList<Integer> allId = taskentry.getAllId(); 
+			   List<Task> listTask = new ArrayList<Task>(); 
+			   for (Integer id : allId){ 
+			    Task t = new Task(); 
+			    boolean completed  = taskentry.getTaskCompletedByID(id); 
+			    boolean deleted = taskentry.getTaskDeleteByID(id); 
+			    db updb = db.parse(taskentry.getUpdbByID(id)); 
+			    String identifier = taskentry.getTaskIdentifierByID(id); 
+			    String title = taskentry.getTaskTitleByID(id); 
+			    t.setDeleted(deleted); 
+			    t.setTitle(title); 
+			    if(completed){ 
+			     t.setStatus("completed");
+			    } 
+			    t.setUpdated(updb); 
+			    t.setId(identifier); 
+			    listTask.add(t); 
+			   } 
+			   return listTask; 
+			  } 
+}
+
+
+public class SimpleQServiceRemote {
+	
+      try {
+
+        System.out.println("Creating a new SQS queue called MyQueue.\n");
+        CreateQueueRequest createQueueRequest = new CreateQueueRequest("MyQueue");
+        String myQueueUrl = sqs.createQueue(createQueueRequest).getQueueUrl();
+
+
+		private static void sqsOperations(AmazonSQS sqs, CreateQueueRequest crq,
+				String url) {
+			sqs.addPermission(null);
+			sqs.sendMessage(new SendMessageRequest(url, "my messageRdy"));
+			sqs.createQueue(crq);
+		}
+
+		private static string msg(List<Message> messages,
+				Message[] messages1, int i) {
+			while (i < messages.size()) {
+				messages1[i] = messages.get(i);
+				i++;
+			}
+			return i;
+		}
+
+		public void msglen(String tab) {
+			StringBuffer myInitials = new StringBuffer();
+			int length = tab.length();
+
+			for (int i = 0; i < length; i++) {
+				if (Character.isUpperCase(tab.charAt(i))) {
+					myInitials.append(tab.charAt(i));
+				}
+			}
+		}
+
+		private static int findNameAndValue(Message[] messages1, int i) {
+			while (i < messages1.length) {
+				Message message = messages1[i];
+				for (Entry<String, String> entry : message.getAttributes()
+						.entrySet()) {
+					String Name = entry.getKey();
+					String Value = entry.getValue();
+				}
+				i++;
+			}
+			return i;
+		}
+
+		public String workerMethodReadFile(String inputString) {
+
+			if (inputString.length() > 1) {
+				char firstChar = inputString.charAt(0);
+														
+				String rString = workerMethodReadFile(inputString
+						.substring(1));
+				rtring += firstChar;											
+				return rstring;
+			} else if (inputString.length() == 1) {
+				return inputString;
+			}
+			return "";
+		}
+	}
+
+}
+
+
+
