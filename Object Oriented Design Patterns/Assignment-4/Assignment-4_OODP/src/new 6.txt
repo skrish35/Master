@@ -1,0 +1,18 @@
+<html> <head> <title> Best Deal </title> <link rel='stylesheet' type='text/css' href='1_login.css'> </head>  <body style='background:#c1bdba'> <h3 style='background:#1AB188'> <img src='BestDeal.png' alt='BestDeal' style='width:200px;height:100px'></h2>  <form action='UpdateProductsGetDetails.jsp' method='post'>  <div class='div-in'>  <p class='create-account-callout'> Product Details </p>  <label for='login_field' class='label-data'> Id </label> <input class='input-data' type='text' name='Id' value='<%= p.getId() %>'></input>  <label for='login_field' class='label-data'> Name </label> <input class='input-data' type='text' name='Name' value='<%= p.getName() %>'></input>  <label for='login_field' class='label-data'> Condition </label> <input class='input-data' type='text' name='Condition' value='<%=p.getCondition()%>'></input>  <label for='login_field' class='label-data'> Price </label> <input class='input-data' type='text' name='Price' value='<%= p.getPrice()%>'></input> 
+ <input class='input-button' name='commit' id='commit' tabindex='3' type='submit' value='Save'>    </div>  </form> </body> </html> 
+ 
+    style="width: 200px; height: 50px; background-color: green;"
+	
+	
+	
+	db.userreviews.aggregate( [ 	{$group:{_id:"$productName",avgRating:{$avg:"$reviewRating"}}}, 	{$sort:{avgRating:-1}}, 	{$limit:5} ])
+
+	
+	
+
+
+db.userreviews.find({reviewRating: {$exists: true}}).forEach(function(obj) {     obj.reviewRating = new NumberInt(obj.reviewRating);     db.userreviews.save(obj); });
+
+
+
+<td> 		<form action='RemoveFromCart.jsp' method='get'> 			<button type='submit' name='removeProduct' value='"+product.getId()+"'> Remove </button> 		</form> 		</td>
