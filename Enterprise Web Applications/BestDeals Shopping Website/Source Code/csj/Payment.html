@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<title> Best Deal </title>
+<link rel="stylesheet" type="text/css" href="1_login.css">
+<link rel="stylesheet" href="styles.css" type="text/css" />
+</head>
+
+<body style="background:#c1bdba">
+
+
+<h3 style="background:#1AB188"> <img src="BestDeal.png" alt="BestDeal" style="width:200px;height:100px"></h3>
+
+<div id='topNavigation'>     <nav>     	<ul>         			<li class=''><a href='OrderServlet'>Order Search </a></li> 			<li class=''><a href='AddReview.html'>Add Reviews </a></li> 			<li class=''><a href='ViewReview'>View Reviews </a></li> 			<li class=''><a href='Trending'>Trending</a></li> 			<li class=''><a href='LogoutServlet'>Logout</a></li> 		</ul>     </nav> </div>
+
+<div class="div-out">
+<div class="div-in">
+
+
+<form action="CheckoutServlet" method = "post">
+<p class="create-account-callout">
+Payment
+</p>
+
+<label for="login_field" class="label-data">
+Name
+</label>
+
+<input autocapitalize="off" autocorrect="off" autofocus="autofocus"  class="input-data" 
+id="Name" name="login" tabindex="1" type="text" placeholder="Name"/>
+
+<label for="login_field" class="label-data">
+Address
+</label>
+
+<input autocapitalize="off" autocorrect="off" autofocus="autofocus"  class="input-data" 
+id="Address" name="Address" tabindex="1" type="text" placeholder="CardHolderAddress"/>
+
+<label for="login_field" class="label-data">
+Credit Card Number
+</label>
+
+<input autocapitalize="off" autocorrect="off" autofocus="autofocus"  class="input-data" 
+id="CardNum" name="CardNum" tabindex="1" type="number" placeholder="CardNumber"/>
+
+<label for="login_field" class="label-data">
+Expiration Date
+</label>
+<div id="expiry">
+
+<input type="text" class="expiry" placeholder="DD" maxlength="2"/> /
+<input type="text" class="expiry" placeholder="YY" maxlength="2"/>
+</div>
+
+<label for="login_field" class="label-data">
+CVV
+</label>
+
+<input autocapitalize="off" autocorrect="off" autofocus="autofocus"  class="input-data" 
+id="cvv" name="cvv" tabindex="1" type="number" placeholder="cvv"/>
+
+<input class="input-button" align="center" name="commit" tabindex="3" type="submit" value="Make Payment"/>
+</form>
+</div>
+</div>
+
+
+</body>
+</html>

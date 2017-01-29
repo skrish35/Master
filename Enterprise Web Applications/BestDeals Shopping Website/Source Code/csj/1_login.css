@@ -1,0 +1,132 @@
+.create-account-callout {
+    padding: 15px 20px;
+    text-align: center;
+    border: 1px solid #d8dee2;
+    border-radius: 5px;
+	width: 250px;
+	margin: auto;
+	margin-top: 12px !important;
+	background-color:lightgray;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#container {
+	width: 960px;
+	margin: 20px auto;
+	padding: 10px;
+	box-shadow: 0 5px 5px 5px #CCCCCC;
+	background-color: #fff;
+}
+.div-out{
+	-webkit-transform: translate(0%,25%); 
+	width:1000px; 
+	border-style: double; 
+	border-color:#f5f5f5; 
+	margin:auto; 
+	padding-bottom:0px; 
+}
+
+img{
+	display: block; 
+	margin:auto; 
+	padding-bottom:10px;
+	padding-top:10px;
+}
+
+.div-in{
+	border-top: 1px solid #d8dee2; 
+	border-radius: 5px;
+	padding: 10px; 
+	font-size: 20px; 
+	font-family: comic sans ms;
+	background-color: #13232f; 
+	border: 1px solid #d8dee2; 
+	display: block; 
+	width:350px; 
+	margin:auto;"
+	color:#ffffff;
+}
+
+.label-data{
+	display: block; 
+	margin-bottom: 7px;  
+	font-weight: normal;
+	color:#ffffff;
+	
+}
+
+.input-button{
+	display: inline block; 
+	width: 125px; 
+	height:60px;
+	text-align: center; 
+	color: white; 
+	text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
+	background-color: #1AB188; 
+	border-color: #5ca941;"
+	padding:50px 70px;
+	font-size: 16px;
+	border-radius:8px;
+	align:center;	
+	
+}
+
+.input-data{
+	display: block; 
+	width: 300px;
+    height: 25px;	
+	margin-top: 5px; 
+	margin-bottom: 15px; 
+	background-color:lightgray;
+	color:black;
+	outline: none; 
+	box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);" 
+	textarea: 200px;
+	-moz-border-radius: 15px;
+    border-radius: 15px;
+    border:solid 1px black;
+    padding:5px;
+}
+
+
+#AutoCompleteTable{
+	position: absolute;
+	width:50%;
+	border: 1px solid #eeeeee;
+	border-collapse: collapse;
+}
+#AutoCompleteTable td,th{
+	height: 30px;
+}
+#AutoCompleteTable tr:hover{
+	background-color: #eeeeee;
+	cursor:pointer;
+}
+#AutoCompleteTable tr td a{
+	display:block;
+	text-decoration: none;
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+	color: black;
+}
+
+#searchAreaText{
+	float:left;
+	width: 50%;
+	height: 40px;
+	font-family: Arial;
+	background-color: #2850A7;
+	border:none;
+	padding-left:10px;
+}
+#autofillForm{
+	width:100%;
+	float:left;
+}
+#adddelbtn .button .a{
+	text-decoration: none;
+}

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ProductCatalog>
+    <product>
+        <productid>001</productid>
+        <image>m1.jpg</image>
+        <name>iphone 6s</name>
+        <condition>New</condition>
+        <price>599</price>
+    </product>
+        
+       <product>
+        <productid>002</productid>
+        <image>m2.jpg</image>
+        <name>Samsung</name>
+        <condition>New</condition>
+        <price>399</price>
+       </product>
+       
+        <product>
+	    <productid>003</productid>
+        <image>m3.jpg</image>
+        <name>LG</name>
+        <condition>Refurbished</condition>
+        <price>259</price>
+        </product>
+        
+        <product>
+	    <productid>004</productid>
+        <image>m4.jpg</image>
+        <name>Sony</name>
+        <condition>New</condition>
+        <price>499</price>
+        </product>
+        
+        <product>
+	    <productid>005</productid>
+        <image>m5.jpg</image>
+        <name>Asus</name>
+        <condition>Refirbushed</condition>
+        <price>199</price>
+       </product>
+	
+
+        <product>
+        <productid>006</productid>
+        <image>l1.jpg</image>
+        <name>HP</name>
+        <condition>New</condition>
+        <price>799</price>
+        </product>
+        
+        <product>
+	    <productid>007</productid>
+        <image>l2.jpg</image>
+        <name>Lenovo Thinkpad</name>
+        <condition>Refurbished</condition>
+        <price>399</price>
+        </product>
+        
+        <product>
+	    <productid>008</productid>
+        <image>l3.jpg</image>
+        <name>Acer</name>
+        <condition>New</condition>
+        <price>699</price>
+        </product>
+        
+        <product>
+	    <productid>009</productid>
+        <image>l4.jpg</image>
+        <name>Dell</name>
+        <condition>New</condition>
+        <price>899</price>
+       </product>
+       
+       <product>
+	    <productid>010</productid>
+        <image>l5.jpg</image>
+        <name>Macbook Pro</name>
+        <condition>New</condition>
+        <price>1099</price>
+       </product>
+	
+
+<product>
+        <productid>011</productid>
+        <image>t1.jpg</image>
+        <name>Dell</name>
+        <condition>New</condition>
+        <price>399</price>
+        </product>
+        
+        <product>
+	    <productid>012</productid>
+        <image>t2.jpg</image>
+        <name>Samsung</name>
+        <condition>New</condition>
+        <price>449</price>
+        </product>
+        
+        <product>
+	    <productid>013</productid>
+        <image>t3.jpg</image>
+        <name>Lenovo</name>
+        <condition>New</condition>
+        <price>549</price>
+       </product>
+       
+       <product>
+	    <productid>014</productid>
+        <image>t4.jpg</image>
+        <name>Apple</name>
+        <condition>New</condition>
+        <price>999</price>
+     </product>
+     
+     <product>
+	    <productid>015</productid>
+        <image>t5.jpg</image>
+        <name>Micromax</name>
+        <condition>New</condition>
+        <price>299</price>
+    </product>
+	
+<product>
+        <productid>016</productid>
+        <image>tl1.jpg</image>
+        <name>Philips</name>
+        <condition>New</condition>
+        <price>1099</price>
+        </product>
+        
+        <product>
+	    <productid>017</productid>
+        <image>tl2.jpg</image>
+        <name>LG</name>
+        <condition>New</condition>
+        <price>999</price>
+        </product>
+        
+        <product>
+	    <productid>018</productid>
+        <image>tl3.jpg</image>
+        <name>Sony</name>
+        <condition>New</condition>
+        <price>1299</price>
+        </product>
+        
+        <product>
+	    <productid>019</productid>
+        <image>tl4.jpg</image>
+        <name>Panasonic</name>
+        <condition>New</condition>
+        <price>799</price>
+       </product>
+       
+       <product>
+	    <productid>020</productid>
+        <image>tl5.jpg</image>
+        <name>BPL</name>
+        <condition>Refurbished</condition>
+        <price>299</price>
+        </product>
+	
+</ProductCatalog>

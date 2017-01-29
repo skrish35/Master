@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<title> Best Deal </title>
+<link rel="stylesheet" type="text/css" href="1_login.css">
+</head>
+
+<body style="background:#c1bdba">
+<h3 style="background:#1AB188"> <img src="BestDeal.png" alt="BestDeal" style="width:200px;height:100px"></h3>
+
+<form action="LoginServlet" method="post">
+<div class="div-out">
+
+<div class="div-in">
+
+<p class="create-account-callout">
+LogIn
+
+</p>
+
+<label for="login_field" class="label-data">
+Username
+</label>
+
+<input autocapitalize="off" autocorrect="off" autofocus="autofocus"  class="input-data" 
+id="login_field" name="login" tabindex="1" type="text" placeholder="yourname@email.com">
+
+<label for="password" class="label-data">
+Password 
+</label>
+<input  class="input-data" id="password" name="password" tabindex="2" type="password" placeholder="password">
+
+<input class="input-button" data-disable-with="Signing in…" name="commit" id="commit" tabindex="3" type="submit" value="Sign In">
+</div>
+
+<p class="create-account-callout">
+New User?
+<a data-ga-click="Sign in, switch to sign up" href="SignUp">Create an account</a>.
+</p>
+
+</div>
+</form>
+</body>
+</html>
